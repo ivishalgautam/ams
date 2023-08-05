@@ -54,6 +54,10 @@ const DoctorPage = () => {
     dispatch(setFieldValue({ field: name, value: value }));
   }
 
+  function handleFormSubmit(){
+    
+  }
+
   return (
     <div>
       {/* personal info */}
