@@ -7,10 +7,12 @@ import {
   MdPersonOutline,
 } from "react-icons/md";
 import { AiFillHome, AiOutlineHome } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-  const [activeTab, setActiveTab] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const { navList } = useSelector((store) => store.navMenu);
   // console.log(pathname);
   return (
     <>
@@ -45,57 +47,94 @@ const Sidebar = () => {
         <div className="h-full overflow-y-auto rounded-br-3xl rounded-tr-3xl bg-primary px-3 py-4 text-white shadow-lg">
           <span className="text-3xl font-bold">Logo</span>
           <ul className="mt-5 space-y-2 font-medium aside-list">
-            <li>
+            {navList?.map((nav) => {
+              return (
+                <li
+                  key={nav.id}
+                  className={`${
+                    activeIndex === nav.id ? "bg-primary-dark" : ""
+                  } rounded-md`}
+                >
+                  <button
+                    className={`w-full flex items-center rounded-lg p-2 hover:bg-primary-dark  transition-colors`}
+                    onClick={() => setActiveIndex(nav.id)}
+                  >
+                    <MdPersonOutline size={20} />
+                    <span className="ml-3 text-sm capitalize">{nav.name}</span>
+                  </button>
+                  {nav.type === "dropdown" && (
+                    <ul
+                      className={`${
+                        activeIndex === nav.id ? "active" : ""
+                      } pl-6 py-2 space-y-2`}
+                    >
+                      {nav.submenu.map((sub) => {
+                        return (
+                          <li key={sub.id}>
+                            <Link
+                              to={sub.path}
+                              className={`flex items-center rounded-lg p-1  transition-colors`}
+                            >
+                              <span className="ml-3 text-sm capitalize">
+                                {sub.name}
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+            {/* <li>
               <Link
                 to={"/"}
                 className={`flex items-center rounded-lg p-2 hover:bg-primary-dark ${
                   pathname === "" ? "bg-primary-dark" : ""
                 } transition-colors`}
               >
-                {pathname === "" ? (
-                  <AiFillHome size={20} />
-                ) : (
-                  <AiOutlineHome size={20} />
-                )}
+                <AiOutlineHome size={20} />
                 <span className="ml-3 text-sm capitalize">Dashboard</span>
               </Link>
-            </li>
+            </li> */}
 
-            <li>
+            {/* doctors */}
+
+            {/* hospitals */}
+            {/* <li>
               <button
                 className={`w-full flex items-center rounded-lg p-2 hover:bg-primary-dark ${
-                  pathname.includes("doctors") ? "bg-primary-dark" : ""
+                  pathname.includes("hospitals") ? "bg-primary-dark" : ""
                 } transition-colors`}
                 onClick={() => setActiveTab(!activeTab)}
               >
-                {pathname.includes("doctors") ? (
-                  <MdPerson size={20} />
-                ) : (
-                  <MdPersonOutline size={20} />
-                )}
-                <span className="ml-3 text-sm capitalize">Manage doctors</span>
+                <MdPersonOutline size={20} />
+                <span className="ml-3 text-sm capitalize">
+                  Manage hospitals
+                </span>
               </button>
               <ul
                 className={`${activeTab ? "active" : ""} pl-6 mt-2 space-y-2`}
               >
                 <li>
                   <Link
-                    to={"/doctors/add"}
+                    to={"/hospitals/add"}
                     className={`flex items-center rounded-lg p-1  transition-colors`}
                   >
-                    <span className="ml-3 text-sm">Add New Doctor</span>
+                    <span className="ml-3 text-sm">Add New hospital</span>
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to={"/doctors"}
+                    to={"/hospitals"}
                     className={`flex items-center rounded-lg p-1  transition-colors`}
                   >
-                    <span className="ml-3 text-sm">All Doctors</span>
+                    <span className="ml-3 text-sm">All hospitals</span>
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </aside>

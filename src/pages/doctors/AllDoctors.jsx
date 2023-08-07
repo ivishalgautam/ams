@@ -12,7 +12,6 @@ import {
 import { getDoctorById } from "../../store/features/doctor/getDoctorSlice";
 import { openModal } from "../../store/features/modal/modalSlice";
 import UpdateDoctorModal from "./modal/UpdateDoctor";
-import { setFieldValue } from "../../store/features/inputs/inputSlice";
 
 const AllDoctors = () => {
   const [doctorId, setDoctorId] = useState("");

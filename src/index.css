@@ -18,6 +18,9 @@
   .flexbox-center {
     @apply flex items-center justify-center;
   }
+  .flexbox-start {
+    @apply flex items-center justify-start;
+  }
 }
 
 .aside-list li ul {
